@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Space Calendar</title>
+<style>
+    body {
+        margin: 0;
+        background: radial-gradient(circle at center, #0a0f33, #000000);
+        font-family: Arial, sans-serif;
+        color: white;
+        overflow-x: hidden;
+    }
+
+    h1 {
+        text-align: center;
+        padding: 20px;
+        font-size: 2.5em;
+        letter-spacing: 2px;
+    }
+
+    .calendar {
+        width: 90%;
+        max-width: 600px;
+        margin: auto;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px;
+        border-radius: 15px;
+        backdrop-filter: blur(5px);
+    }
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.4em;
+        margin-bottom: 10px;
+    }
+
+    .calendar-header button {
+        background: #1a1f55;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 1em;
+        transition: 0.3s;
+    }
+
+    .calendar-header button:hover {
+        background: #3a47d5;
+    }
+
+    .days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 10px;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .day {
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+
+    .day:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+    }
+</style>
+</head>
+<body>
+
+<h1>🚀 Space Calendar</h1>
+
+<div class="calendar">
+    <div class="calendar-header">
+        <button onclick="prevMonth()">←</button>
+        <div id="month-year"></div>
+        <button onclick="nextMonth()">→</button>
+    </div>
+
+    <div class="days" id="calendar-days"></div>
+</div>
+
+<script>
+const monthYear = document.getElementById("month-year");
+const daysContainer = document.getElementById("calendar-days");
+
+let date = new Date();
+
+function loadCalendar() {
+    const month = date.getMonth();
+    const year = date.getFullYear();
+
+    monthYear.innerHTML = date.toLocaleString("en-US", { month: "long", year: "numeric" });
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const totalDays = new Date(year, month + 1, 0).getDate();
+
+    daysContainer.innerHTML = "";
+
+    for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement("div");
+        daysContainer.appendChild(empty);
+    }
+
+    for (let i = 1; i <= totalDays; i++) {
+        const d = document.createElement("div");
+        d.classList.add("
